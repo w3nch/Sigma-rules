@@ -1,2 +1,1 @@
 # Sigma-rules
-# Sigma-rules
