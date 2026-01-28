@@ -1,0 +1,24 @@
+title: Office Document Dropping Executable
+id: 91c91a18-office-drop-exe
+status: experimental
+description: Detects Office applications creating or executing dropped executables
+author: wrench
+date: 2026/01/28
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+    Image|endswith:
+      - '.exe'
+  filter_legit:
+    Image|contains:
+      - '\Program Files\'
+      - '\Windows\'
+  condition: selection and not filter_legit
+level: high
+tags:
+  - attack.execution
+  - attack.t1204

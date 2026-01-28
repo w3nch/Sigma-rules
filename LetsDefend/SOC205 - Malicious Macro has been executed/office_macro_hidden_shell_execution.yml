@@ -1,0 +1,21 @@
+title: Hidden Shell Execution from Office Macro
+id: c8e5bff9-office-hidden-shell
+status: experimental
+description: Detects Office macros spawning processes with hidden window execution
+author: wrench
+date: 2026/01/28
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+    CommandLine|contains:
+      - 'cmd.exe /c'
+      - 'powershell'
+  condition: selection
+level: high
+tags:
+  - attack.execution
+  - attack.t1059
