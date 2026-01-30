@@ -1,0 +1,22 @@
+title: SQL Injection Payload Detected in HTTP Parameters
+id: c92a4f33-sqli-payload-detection
+status: experimental
+description: Detects common SQL injection payloads such as UNION-based and boolean-based injections
+author: wrench
+date: 2026/01/29
+logsource:
+  category: webserver
+detection:
+  selection:
+    url_query|contains:
+      - 'UNION SELECT'
+      - 'UNION ALL SELECT'
+      - 'AND 1=1'
+      - 'AND 1=2'
+      - '--'
+      - 'information_schema'
+  condition: selection
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190

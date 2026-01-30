@@ -1,0 +1,18 @@
+title: SQL Injection Attempt Using xp_cmdshell
+id: b3f21de8-sqli-xp-cmdshell
+status: experimental
+description: Detects SQL injection attempts trying to execute OS commands via xp_cmdshell
+author: wrench
+date: 2026/01/29
+logsource:
+  category: webserver
+detection:
+  selection:
+    url_query|contains:
+      - 'xp_cmdshell'
+      - 'EXEC xp_cmdshell'
+  condition: selection
+level: critical
+tags:
+  - attack.execution
+  - attack.t1059

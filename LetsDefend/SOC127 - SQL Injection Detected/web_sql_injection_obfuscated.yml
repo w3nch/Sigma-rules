@@ -1,0 +1,19 @@
+title: Obfuscated SQL Injection Payload Detected
+id: 51fbbd21-sqli-obfuscation
+status: experimental
+description: Detects obfuscated SQL injection attempts using CAST, CHR, or encoded payloads
+author: wrench
+date: 2026/01/29
+logsource:
+  category: webserver
+detection:
+  selection:
+    url_query|contains:
+      - 'CHR('
+      - 'CAST('
+      - '::text'
+  condition: selection
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1190
