@@ -1,0 +1,19 @@
+title: Suspicious PowerShell IEX with Web Download
+id: 6d1fbe3e-0b61-4e3c-9e8f-psh-iex-iwr
+status: experimental
+description: Detects PowerShell downloading and executing remote scripts using IEX and IWR
+author: SOC Analyst
+logsource:
+  product: windows
+  service: powershell
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains:
+      - "Invoke-WebRequest"
+      - "IEX"
+  condition: selection
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001
